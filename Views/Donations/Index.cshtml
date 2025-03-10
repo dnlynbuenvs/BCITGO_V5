@@ -10,23 +10,28 @@
     <a asp-action="Create">Create New</a> <!--Change the title of the page - ADDED-->
 </p>
 <table class="table">
+
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Name) <!-- Will be shown as "Donor Name" if Display attribute is added -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                @Html.DisplayNameFor(model => model.Amount) <!-- Will show as "Donation Amount" -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateTime)
+                @Html.DisplayNameFor(model => model.DateTime) <!-- Will show as "Donation Date" -->
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserID)
+                @Html.DisplayNameFor(model => model.UserID) <!-- Will show as "User ID" -->
             </th>
             <th></th>
         </tr>
     </thead>
+
+
+
+
     <tbody>
 @foreach (var item in Model) {
         <tr>
@@ -42,10 +47,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserID)
             </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DonationID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.DonationID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.DonationID">Delete</a>
+
+
             </td>
         </tr>
 }

@@ -1,7 +1,7 @@
 # **📖 PROJECT FLOW CREATION GUIDE 📖** #
 
 <!-- STEP 1 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 1 - INSTALL PACKAGES** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 1 - INSTALL PACKAGES </h2>
 
 ### **1. Install the Required Packages for ASP.NET MVC Project**
 - In **Visual Studio 2022**, go to:
@@ -38,7 +38,7 @@
 _______________________________________
 
 <!-- STEP 2 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 2 - Setup Connection String** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 2 - Setup Connection String</h2>
 
 ### 1. Modify `appsettings.json` and `appsettings.Development.json` to Add the Connection String ####
 
@@ -61,7 +61,7 @@ add the code below:
 ```
 
 <!-- STEP 3 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 3 - Setup Program.cs** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 3 - Setup Program.cs </h2>
 
 ### This configures the application's services, like the database connection and dependency injection, ensuring proper interaction with components like Entity Framework.####
 1. Check my code for reference
@@ -70,7 +70,7 @@ _______________________________________
 
 
 <!-- STEP 4 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 4 - Setup ApplicationDbContext** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 4 - Setup ApplicationDbContext </h2>
 
 ### This manages the connection to the database and provides access to the tables (models) in the database for performing operations like adding, updating, or retrieving data. ####
 
@@ -81,7 +81,7 @@ _______________________________________
 
 
 <!-- STEP 5 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 5 - Create DbInitializer** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 5 - Create DbInitializer (Data Seeding) </h2>
 
 ### DbInitializer is for seeding data (if you need to add initial records or test data to your tables) ####
 
@@ -91,7 +91,7 @@ _______________________________________
 
 
 <!-- STEP 6 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 6 - Define the Model Classes** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 6 - Define the Model Classes </h2>
 
 ### This represents the structure of your database tables and allows you to interact with the database using Entity Framework Core for data manipulation. ####
 
@@ -103,7 +103,7 @@ _______________________________________
 _______________________________________
 
 <!-- STEP 7 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 7 -  Migrate and Update Database ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 7 -  Migrate and Update Database </h2>
 
 ### Important steps in Entity Framework Core because they allow your application to: ####
 
@@ -146,7 +146,7 @@ _______________________________________
 _______________________________________
 
 <!-- STEP 8 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 8 -  Scaffold CRUD Pages ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 8 -  Scaffold CRUD Pages </h2>
 
 1. Right click on the `Controllers` folder, select **Add** → **New Scaffolded Item** → **MVC Controller with views, using Entity Framework**.
     - Model Class - *the model you want to scaffold (e.g., `TripPosting`, `User`, etc.)*
@@ -158,7 +158,7 @@ This will generate the views and controller methods for CRUD operations.
 _________________________________________
 
 <!-- STEP 9 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 9 -  Update Controllers ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 9 -  Update Controllers </h2>
 
 #### In this step, I will explain the things that you need to edit on each controller and the relation on the `_Layout.cshtml`
 
@@ -436,7 +436,7 @@ public async Task<IActionResult> DeleteConfirmed(int id)
 _________________________________________
 
 <!-- STEP 10 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 10 -  Update _Layout.cshtml ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 10 -  Update _Layout.cshtml </h2>
 
 *The purpose of updating the `_Layout.cshtml` page is to define the common structure, design, and reusable elements (such as headers, footers, and navigation links) that are shared across multiple views in the application, ensuring consistency throughout the site.*
 
@@ -454,7 +454,8 @@ _________________________________________
 
 _________________________________________
 <!-- STEP 11 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 11 -  Update Views ** </h2>
+
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 11 -  Update Views </h2>
 
 #### Redirect to `Views` Folder > Folder of a specific page *(ex. Donations)
 
@@ -485,4 +486,103 @@ To:
 * Verify the title (check browser tab)
 * Navigate through the views 
   * Go through the create, delete, details, and edit pages. Make sure the headers and the title tag match what you specified in the `ViewData["Title"]` and `<h1> tags`.
+
+_________________________________________
+
+<!-- STEP 12 -->
+
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 12 -  Update Field Names & Query Strings </h2>
+
+#### Redirect to `Views` Folder > `Folder of a specific page` > `index.cshtml` *(ex. Donations/index.cshtml)*
+
+#### Check my code for reference, modifications have `-ADDED` comment.
+
+### *Check the following code below:*
+
+
+### 1. **Update the Title**:
+This should already be in place, but you can ensure that the title is clear and descriptive for the **Donations Index** page.
+
+```html
+@model IEnumerable<BCITGO_FINAL.Models.Donation>
+
+@{
+    ViewData["Title"] = "Donations"; <!-- Updated Title for this page -->
+}
+
+<h1>Donations</h1> <!-- This is the page's heading -->
+```
+
+### 2. **Use Display Name for Table Headers**:
+Instead of using `model => model.Name`, `model => model.Amount`, etc., make sure these values are descriptive and user-friendly. You've already done this by using `@Html.DisplayNameFor`.
+
+For instance:
+```html
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name) <!-- Will be shown as "Donor Name" if Display attribute is added -->
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount) <!-- Will show as "Donation Amount" -->
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime) <!-- Will show as "Donation Date" -->
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID) <!-- Will show as "User ID" -->
+        </th>
+        <th></th>
+    </tr>
+</thead>
+```
+
+### 3. **Update URLs in Action Links**:
+This will ensure that the query strings in the URLs are clean. The `asp-route-id` automatically generates readable URLs.
+
+In the action links (`Edit`, `Details`, `Delete`), make sure you use the proper route to display human-readable URLs for each action, as follows:
+```html
+<td>
+    <a asp-action="Edit" asp-route-id="@item.DonationID">Edit</a> |
+    <a asp-action="Details" asp-route-id="@item.DonationID">Details</a> |
+    <a asp-action="Delete" asp-route-id="@item.DonationID">Delete</a>
+</td>
+```
+
+These links will automatically generate routes like `/Donations/Details/1` or `/Donations/Edit/1`, which are more user-friendly.
+
+### 4. **Optional Field Renaming with Display Attributes**:
+You can update the **model class** to make field names more human-readable. This involves adding a `Display` attribute to your model fields. Here's how you can update the `Donation` model:
+
+In your **Donation.cs** class, add **Display** attributes:
+```csharp
+public class Donation
+{
+    [Key]
+    public int DonationID { get; set; }
+
+    [Display(Name = "Donor Name")] // Added Display Name
+    public string Name { get; set; }
+
+    [Display(Name = "Donation Amount")] // Added Display Name
+    public decimal Amount { get; set; }
+
+    [Display(Name = "Donation Date")] // Added Display Name
+    public DateTime DateTime { get; set; }
+
+    [Display(Name = "User ID")] // Added Display Name
+    public int UserID { get; set; }
+}
+```
+
+This will reflect **"Donor Name"**, **"Donation Amount"**, **"Donation Date"**, and **"User ID"** in the view when you use `@Html.DisplayNameFor`.
+
+---
+
+### Summary of what to change:
+1. Update the title for the **`Index.cshtml`** page to be more descriptive (already done).
+2. Use `@Html.DisplayNameFor` for human-readable column headers.
+3. Ensure action links have clean URLs.
+4. Optionally, modify the **Donation model** class by adding the `Display` attribute to make the column headers more readable.
+
 

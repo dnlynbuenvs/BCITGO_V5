@@ -57,38 +57,45 @@ Let me know if you'd like more guidance on any of these steps!
 
 ______________________________________________________________________________
 
-Great job on updating the `_Layout.cshtml`! Now that the layout is set up, the next steps involve:
+Great job on completing the **Update Title & Navigation Links**! Now that you’ve finished that step, here’s what to focus on next to complete your project:
 
-### 1. **Updating Views**
-   - Go through each of your views in the `Views` folder (e.g., `Donations`, `TripPostings`, etc.) and ensure that they are properly linked to the layout and displaying data correctly.
-   - Check that each view has the correct `@ViewData["Title"]` set for the page title. For example:
-     ```csharp
-     @ViewData["Title"] = "Donations";  // For the Donations Index page
-     ```
+### //1. **SeedData Class (Test Data Seeding)**:
+   - Ensure that your **SeedData class** is properly adding data to the database. This will help you to populate the database with initial values, especially for testing.
+   - **What to do:** Check if you have the correct code in the **DbInitializer** class (you have already created this). Ensure that it's adding meaningful test data to all the necessary tables.
+   - **Verify:** You can manually check your database in SQL Server Management Studio (SSMS) or your app to see if the data is being seeded correctly.
 
-### 2. **Test Seed Data**
-   - Ensure that your `DbInitializer` is correctly seeding data into the database when the app runs (you should have tested it when you ran `Update-Database`).
-   - Confirm that the seeded data is visible on the UI when you go to the relevant pages like `Donations`, `TripPostings`, etc.
+### 2. **Updated Field Names & Query Strings**:
+   - Clean up field names and update query strings to be more human-readable. Instead of having query strings like **id=1**, ensure they are more descriptive (e.g., `/Donations/Details/{donationId}`).
+   - **What to do:** Review your routes and views to ensure that URLs are user-friendly, and update the routing if necessary.
 
-### 3. **Verify CRUD Operations**
-   - Test all the CRUD operations (Create, Read, Update, Delete) to ensure they are functioning properly. For instance:
-     - Can you add a donation?
-     - Can you update a donation?
-     - Can you view the donation details?
-     - Can you delete a donation?
+### 3. **Text Filter & SelectList Dropdown**:
+   - Implement search functionality and dropdowns for filtering data. For instance, adding a text box that filters donations by name, amount, etc.
+   - **What to do:** Add text filters in your **Index.cshtml** files. For dropdowns, use **SelectList** to display a list of options like categories, users, or donation types.
+   - **Verify:** Check that the filtering works as expected by entering search terms and selecting dropdown options.
 
-### 4. **Navigation Links**
-   - Double-check that all your navigation links (like the ones in the `_Layout.cshtml` header) are correctly set and lead to the corresponding pages. For example, check if `Donations`, `Trips`, and `Privacy` links in the navigation bar open the appropriate pages.
+### 4. **Model Validation**:
+   - Make sure all your model classes have proper validation rules. For example, the **Donation** model should validate that **Amount** is positive and **UserID** is not empty.
+   - **What to do:** Ensure that your model properties have attributes like `[Required]`, `[Range]`, `[StringLength]`, etc.
+   - **Verify:** Test by submitting invalid data in forms and check that validation messages are displayed.
 
-### 5. **Implementing Filters and Sorting (If applicable)**
-   - If any views require text filters or dropdowns (like the `SelectList` for filtering data), ensure these are implemented and functioning.
-   - For example, you might need a dropdown to filter trip postings by status or date.
+### 5. **Related Data in Details Page**:
+   - Ensure you are displaying related data (like User's information, or Vehicle data) in the **Details** pages. You should show relevant information linked by foreign keys.
+   - **What to do:** Update your **Details.cshtml** to include related data.
+   - **Verify:** Check that related data shows up correctly when viewing details of an item (e.g., viewing a donation should show the related user).
 
-### 6. **Model Validation**
-   - Check that all models (like `Donation`, `TripPosting`, etc.) have the appropriate validation attributes and that invalid inputs are handled gracefully.
+### 6. **Column Heading Sorting & Paging Functionality**:
+   - Implement sorting and paging for your tables, especially in the **Index** views. This will allow users to sort donations by name, amount, etc., and paginate results to improve performance.
+   - **What to do:** Use **PagedList** and sorting functionality in your **Index.cshtml** files.
+   - **Verify:** Check if sorting works when you click on column headers, and paging works to display a limited number of rows at a time.
 
-### 7. **Final Check**
-   - Ensure that all the required pages and their functionality are in place.
-   - Do a final check for responsiveness and make sure everything is working as expected across different screen sizes.
+### 7. **Final Testing and Quality Check**:
+   - Once you’ve completed all of the above steps, test all your pages and functionality to ensure that everything works as expected.
+   - **What to do:** Go through all the CRUD operations, validation, and related data display. Check for any broken links or missing features.
 
-Would you like help with any of these steps in detail?
+### 8. **Overall Quality Check**:
+   - Make sure everything looks and works as intended (UI/UX, navigation, form submissions, data display). Ensure the application is both functional and user-friendly.
+   - **What to do:** Go through the project step by step to ensure that everything is implemented.
+
+---
+
+After completing these steps, you will be closer to the completion of your project. Once everything is functional, you'll want to do a final code cleanup, ensure that there are no unnecessary comments, and prepare the project for submission.
