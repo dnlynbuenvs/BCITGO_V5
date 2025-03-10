@@ -50,6 +50,7 @@
             // Seed Reviews
             var review1 = new Review { TripPostingID = trip1.TripPostingID, Rating = 5, ReviewDescription = "Great experience!" };
             var review2 = new Review { TripPostingID = trip2.TripPostingID, Rating = 4, ReviewDescription = "Very comfortable ride!" };
+            var review3 = new Review { TripPostingID = trip2.TripPostingID, Rating = 4, ReviewDescription = "Very comfortable ride!" };
             context.Review.AddRange(review1, review2);
             context.SaveChanges();
 

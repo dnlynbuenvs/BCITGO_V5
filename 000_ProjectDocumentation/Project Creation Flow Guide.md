@@ -60,6 +60,9 @@ add the code below:
 
 ## 3️⃣ Setup ApplicationDbContext
 _______________________________________
+### This manages the connection to the database and provides access to the tables (models) in the database for performing operations like adding, updating, or retrieving data. ####
+
+
 1.  Create `data` folder and create `ApplicationDbContext` class inside.
 2. Setup > check my code for reference
 
@@ -67,7 +70,7 @@ _______________________________________
 _______________________________________
 ### DbInitializer is for seeding data (if you need to add initial records or test data to your tables) ####
 
-1.  Under `data` folder, create `DbInitializert` class inside.
+1. Under `data` folder, create `DbInitializert` class inside.
 2. Setup > check my code for reference
 
 
