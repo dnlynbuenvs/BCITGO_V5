@@ -5,6 +5,16 @@
 }
 
 <h1>Driver</h1>  <!--Change the title of the page - ADDED-->
+<!-- Add Search Box ADDED-->
+<p>
+    <form method="get">
+        <input type="text" name="searchString" placeholder="Search by Driver's Name"
+               value="@ViewData["SearchString"]" /> <!-- Use ViewData["SearchString"] here -->
+        <input type="submit" value="Search" />
+    </form>
+
+</p>
+
 
 <p>
     <a asp-action="Create">Create New</a>

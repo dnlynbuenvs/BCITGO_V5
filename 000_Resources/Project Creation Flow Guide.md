@@ -586,3 +586,77 @@ This will reflect **"Donor Name"**, **"Donation Amount"**, **"Donation Date"**, 
 4. Optionally, modify the **Donation model** class by adding the `Display` attribute to make the column headers more readable.
 
 
+_______________________________________________________________
+
+<!-- STEP 13 -->
+
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 13 -  Text Filter & SelectList Dropdown </h2>
+
+To implement **Text Filters** and a **SelectList Dropdown** in your ASP.NET MVC project, you can follow these steps:
+
+### **1. Text Filter** *(for searching/filtering based on a text field)*
+
+**You will allow the user to search/filter the list of items (e.g., donations, vehicles, etc.) by entering a text in a search box.**
+
+
+In your `DonationsController`, update the `Index` or `// GET: Donation` method to accept a search parameter and filter the donations based on the provided text. See code below
+
+```csharp
+        // GET: Donations
+        public async Task<IActionResult>  Index(string searchString) //ADDED THIS > Index(string searchString) - new
+        {
+            ViewData["Title"] = "Donations";  // Set the page title for Donations index - ADDED
+
+            //ADDED CODE BELOW - new
+            var donations = from d in _context.Donation
+                            select d;
+
+            // If search string is provided, filter donations by Name. - ADDED
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                donations = donations.Where(d => d.Name.Contains(searchString)); // Filter by donor name
+            }
+
+            ViewData["SearchString"] = searchString;  // Pass searchString to the View
+
+
+            return View(await _context.Donation.ToListAsync());
+        }
+```
+
+**Step 2: Update the `Index.cshtml` on `Views` to add a search box.**
+
+In the `Donations Index` view (`Index.cshtml`), add a form where the user can type a search string.
+
+```csharp
+<!-- Add Search Box ADDED-->
+<p>
+    <form method="get">
+        <input type="text" name="searchString" placeholder="Search by Donor Name"
+               value="@ViewData["SearchString"]" /> <!-- Use ViewData["SearchString"] here -->
+        <input type="submit" value="Search" />
+    </form>
+
+</p>
+```
+
+
+#### Explanation:
+- A **SelectList** is populated with values for **Donation Amounts** (you can populate it dynamically from your database if needed).
+- The user can choose a donation amount from the dropdown, and the donations will be filtered based on the selected value.
+- The search box (`Text Filter`) will filter donations based on the donor's name, and the dropdown (`SelectList`) will filter based on the selected donation amount.
+
+
+
+### **Next Steps**:
+1. **Text Filter** and **SelectList Dropdown** functionality should now work for your **Donations** view. You can implement similar filters and dropdowns for other entities such as **Vehicles**, **Users**, etc.
+2. **Run your project** and navigate to the donations page. Test the search and dropdown filters to make sure they filter the results as expected.
+
+This will allow users to filter results based on both text input and dropdown selection, improving the UX for your users.
+
+### ⁉️ VERIFY: Text Filter & SelectList Dropdown
+* Run Application `Ctrl + F5` or press `run: https`
+* Navigate to donation index pages
+* Test the search functionality
+
+

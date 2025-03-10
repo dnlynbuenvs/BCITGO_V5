@@ -6,6 +6,17 @@
 
 <h1>Reviews</h1> <!--Change the title of the page - ADDED-->
 
+<!-- Add Search Box ADDED-->
+<p>
+    <form method="get">
+        <input type="text" name="searchString" placeholder="Search by Reviews"
+               value="@ViewData["SearchString"]" /> <!-- Use ViewData["SearchString"] here -->
+        <input type="submit" value="Search" />
+    </form>
+
+</p>
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>

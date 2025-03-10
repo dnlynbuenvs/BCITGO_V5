@@ -19,11 +19,25 @@ namespace BCITGO_FINAL.Controllers
             _context = context;
         }
 
-        // GET: Users
-        public async Task<IActionResult> Index()
+
+        // GET: Donations
+        public async Task<IActionResult> Index(string searchString) //ADDED THIS > Index(string searchString) - new
         {
             ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
-            return View(await _context.User.ToListAsync());
+
+            //ADDED CODE BELOW - new
+            var donations = from d in _context.Donation
+                            select d;
+
+            // If search string is provided, filter donations by Name. - ADDED
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                donations = donations.Where(d => d.Name.Contains(searchString)); // Filter by donor name
+            }
+
+            ViewData["SearchString"] = searchString;  // Pass searchString to the View
+
+            return View(await _context.Donation.ToListAsync());
         }
 
         // GET: Users/Details/5

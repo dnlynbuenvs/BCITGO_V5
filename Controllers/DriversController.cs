@@ -20,9 +20,24 @@ namespace BCITGO_FINAL.Controllers
         }
 
         // GET: Drivers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString) //ADDED THIS > Index(string searchString) - new
         {
             ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
+
+
+            //ADDED CODE BELOW - new
+            var drivers = from d in _context.Driver
+                          select d;
+
+            // If search string is provided, filter drivers by Name or DrivingLicense.
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                drivers = drivers.Where(d => d.DrivingLicense.Contains(searchString) || d.UserID.ToString().Contains(searchString)); // Filter by driving license or User ID
+            }
+
+            ViewData["SearchString"] = searchString;  // Pass searchString to the View
+
+
             return View(await _context.Driver.ToListAsync());
         }
 

@@ -6,6 +6,17 @@
 
 <h1>Vehicle</h1>
 
+<!-- Add Search Box ADDED-->
+<p>
+    <form method="get">
+        <input type="text" name="searchString" placeholder="Search by Vehicle"
+               value="@ViewData["SearchString"]" /> <!-- Use ViewData["SearchString"] here -->
+        <input type="submit" value="Search" />
+    </form>
+
+</p>
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
