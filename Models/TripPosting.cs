@@ -18,8 +18,8 @@ namespace BCITGO_FINAL.Models
         [ForeignKey("Vehicle")]
 
         public int VehicleID { get; set; }
-        public string StartLocation { get; set; }
-        public string EndLocation { get; set; }
+        public required string StartLocation { get; set; }
+        public required string EndLocation { get; set; }
         public DateTime Date { get; set; }
         public int SeatAvailable { get; set; }
         public string Status { get; set; }

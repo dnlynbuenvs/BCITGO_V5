@@ -40,7 +40,7 @@ _______________________________________
 <!-- STEP 2 -->
 <h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 2 - Setup Connection String** </h2>
 
-### 1. Modify `appsettings.json` to Add the Connection String ####
+### 1. Modify `appsettings.json` and `appsettings.Development.json` to Add the Connection String ####
 
 At the top of:
 ```csharp
@@ -56,6 +56,8 @@ add the code below:
     "DefaultConnection": "Server=localhost;Database=BCITGODB;User ID=Dannie Password=dannie;Trusted_Connection=True;Encrypt=False"
 
   },
+
+
 ```
 
 <!-- STEP 3 -->
@@ -142,6 +144,21 @@ _______________________________________
 4. Check if it is successful
     - **Option 1:** on SQL Server Explorer, refresh `SQL Server`. You should be able to see the new DB under `databases`
     - **Option 2:** on SSMS , refresh `local host`. You should be able to see the new DB under `databases`. Query on SSMS `SELECT TOP 5 * FROM Donation;` to pull out the first few rows.
+5. Run the code >> `Run HTTPS` to push the data on the database.
+
+### **DEBUG DB**
+1. If you changed any code related to DB to the following:
+    - Since you already did the `Add-Migration InitialCreate` and `Update-Database`, just use `Ctrl + Shift + B` to rebuild the solution
+    - Run the code >> `Run HTTPS` to push the data on the database.
+    - Refresh DB and check if successful.
+
+2. Redoing the Database. Run the following:
+    - `dotnet clean`
+    - `dotnet build`
+    - `dotnet ef migrations add InitialCreate`
+    - `dotnet ef database update` 
+    - run https code again
+
 _______________________________________
 
 

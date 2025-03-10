@@ -7,8 +7,9 @@ namespace BCITGO_FINAL.Data
 
         public static void Initialize(ApplicationDbContext context)
         {
-            // Ensure database is created
-            context.Database.EnsureCreated();
+            // Ensure database is created - REMOVED
+                //context.Database.EnsureCreated(); - REMOVED
+
 
             // Check if any data exists to avoid duplication
             if (context.User.Any() || context.Donation.Any() || context.Driver.Any() ||
@@ -39,10 +40,17 @@ namespace BCITGO_FINAL.Data
             context.SaveChanges();
 
             // Seed Trip Postings
-            var trip1 = new TripPosting { DriverID = driver1.DriverID, VehicleID = vehicle1.VehicleID, StartLocation = "Patterson", EndLocation = "Richmond", SeatAvailable = 5, Status = "available" };
-            var trip2 = new TripPosting { DriverID = driver1.DriverID, VehicleID = vehicle1.VehicleID, StartLocation = "Metrotown", EndLocation = "Surrey", SeatAvailable = 3, Status = "available" };
-            context.TripPosting.AddRange(trip1, trip2);
+            var trip1 = new TripPosting { DriverID = driver1.DriverID, VehicleID = vehicle1.VehicleID, StartLocation = "Patterson", EndLocation = "Richmond", SeatAvailable = 5, Status = "available", Date = new DateTime(2025, 3, 10) };
+            var trip2 = new TripPosting { DriverID = driver1.DriverID, VehicleID = vehicle1.VehicleID, StartLocation = "Metrotown", EndLocation = "Surrey", SeatAvailable = 3, Status = "available", Date = new DateTime(2025, 3, 10) };
+            var trip3 = new TripPosting { DriverID = driver1.DriverID, VehicleID = vehicle1.VehicleID, StartLocation = "loc1", EndLocation = "loc2", SeatAvailable = 3, Status = "available", Date = new DateTime(2025, 3, 10) };
+            context.TripPosting.Add(trip1);
+            context.TripPosting.Add(trip2);
+            context.TripPosting.Add(trip3);
             context.SaveChanges(); // Save to get TripPostingID
+            Console.WriteLine($"trip1 ID: {trip1.TripPostingID}, trip2 ID: {trip2.TripPostingID}, trip3 ID: {trip3.TripPostingID}");
+
+
+
 
             // Seed Trip Booking
             var tripBooking1 = new TripBooking { TripPostingID = trip1.TripPostingID, UserID = user1.UserID, SeatsBook = 2, BookingStatus = "available" };
@@ -52,9 +60,14 @@ namespace BCITGO_FINAL.Data
             // Seed Reviews
             var review1 = new Review { TripPostingID = trip1.TripPostingID, Rating = 5, ReviewDescription = "Great experience!" };
             var review2 = new Review { TripPostingID = trip2.TripPostingID, Rating = 4, ReviewDescription = "Very comfortable ride!" };
-            var review3 = new Review { TripPostingID = trip2.TripPostingID, Rating = 4, ReviewDescription = "Very comfortable ride!" };
-            context.Review.AddRange(review1, review2);
+            var review3 = new Review { TripPostingID = trip3.TripPostingID, Rating = 4, ReviewDescription = "Test 3!" };
+            context.Review.AddRange(review1, review2, review3);
             context.SaveChanges();
+            Console.WriteLine("Adding reviews...");
+            context.Review.AddRange(review1, review2, review3);
+            context.SaveChanges();
+            Console.WriteLine("Reviews added successfully.");
+
 
         }
     }
