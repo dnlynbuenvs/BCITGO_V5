@@ -456,41 +456,33 @@ _________________________________________
 <!-- STEP 11 -->
 <h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 11 -  Update Views ** </h2>
 
-Great job on updating the `_Layout.cshtml`! Now that the layout is set up, the next steps involve:
+#### Redirect to `Views` Folder > Folder of a specific page *(ex. Donations)
 
-### 1. **Updating Views**
-   - Go through each of your views in the `Views` folder (e.g., `Donations`, `TripPostings`, etc.) and ensure that they are properly linked to the layout and displaying data correctly.
-   - Check that each view has the correct `@ViewData["Title"]` set for the page title. For example:
-     ```csharp
-     @ViewData["Title"] = "Donations";  // For the Donations Index page
-     ```
+### 1. Index.cshtml - *Add the following code below:*
+  * Check my code as well as reference. Changes have `-ADDED` comment.
+  * Apply the code changes below to all `Views`.
 
-### 2. **Test Seed Data**
-   - Ensure that your `DbInitializer` is correctly seeding data into the database when the app runs (you should have tested it when you ran `Update-Database`).
-   - Confirm that the seeded data is visible on the UI when you go to the relevant pages like `Donations`, `TripPostings`, etc.
+Change:
+```csharp
+@{
+    ViewData["Title"] = "Index"; 
+}
 
-### 3. **Verify CRUD Operations**
-   - Test all the CRUD operations (Create, Read, Update, Delete) to ensure they are functioning properly. For instance:
-     - Can you add a donation?
-     - Can you update a donation?
-     - Can you view the donation details?
-     - Can you delete a donation?
+<h1>Index</h1> 
+```
 
-### 4. **Navigation Links**
-   - Double-check that all your navigation links (like the ones in the `_Layout.cshtml` header) are correctly set and lead to the corresponding pages. For example, check if `Donations`, `Trips`, and `Privacy` links in the navigation bar open the appropriate pages.
+To:
+```csharp
+@{
+    ViewData["Title"] = "Donations"; <!--Change the title of the page - ADDED-->
+}
 
-### 5. **Implementing Filters and Sorting (If applicable)**
-   - If any views require text filters or dropdowns (like the `SelectList` for filtering data), ensure these are implemented and functioning.
-   - For example, you might need a dropdown to filter trip postings by status or date.
-
-### 6. **Model Validation**
-   - Check that all models (like `Donation`, `TripPosting`, etc.) have the appropriate validation attributes and that invalid inputs are handled gracefully.
-
-### 7. **Final Check**
-   - Ensure that all the required pages and their functionality are in place.
-   - Do a final check for responsiveness and make sure everything is working as expected across different screen sizes.
-
-Would you like help with any of these steps in detail?
-
-
+<h1>Donations</h1> <!--Change the title of the page - ADDED-->
+```
+### ⁉️ VERIFY: Views
+* Run Application `Ctrl + F5` or press `run: https`
+* Check pages
+* Verify the title (check browser tab)
+* Navigate through the views 
+  * Go through the create, delete, details, and edit pages. Make sure the headers and the title tag match what you specified in the `ViewData["Title"]` and `<h1> tags`.
 
