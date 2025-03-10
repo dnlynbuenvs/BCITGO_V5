@@ -67,6 +67,8 @@ _______________________________________
 _______________________________________
 ### DbInitializer is for seeding data (if you need to add initial records or test data to your tables) ####
 
+1.  Under `data` folder, create `DbInitializert` class inside.
+2. Setup > check my code for reference
 
 
 
