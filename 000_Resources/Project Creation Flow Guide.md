@@ -102,24 +102,8 @@ _______________________________________
 
 _______________________________________
 
-
 <!-- STEP 7 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 7 - Define the Model Classes ** </h2>
-
-
-### This represents the structure of your database tables and allows you to interact with the database using Entity Framework Core for data manipulation. ####
-_______________________________________
-
-
-<!-- STEP 8 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 8 -  Define the Model Classes ** </h2>
-
-
-### This represents the structure of your database tables and allows you to interact with the database using Entity Framework Core for data manipulation. ####
-_______________________________________
-
-<!-- STEP 9 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 9 -  Migrate and Update Database ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 7 -  Migrate and Update Database ** </h2>
 
 ### Important steps in Entity Framework Core because they allow your application to: ####
 
@@ -161,6 +145,18 @@ _______________________________________
 
 _______________________________________
 
+<!-- STEP 8 -->
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 8 -  Scaffold CRUD Pages ** </h2>
+
+1. Right click on the `Controllers` folder, select **Add** → **New Scaffolded Item** → **MVC Controller with views, using Entity Framework**.
+    - Model Class - *the model you want to scaffold (e.g., `TripPosting`, `User`, etc.)*
+    - DbContextClass - Select the `ApplicationDbContext` that you need.
+
+This will generate the views and controller methods for CRUD operations.
+_______________________________________
+
+<!-- STEP 9 -->
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 9 -  Update Title & Navigation Links ** </h2>
 
 
 
