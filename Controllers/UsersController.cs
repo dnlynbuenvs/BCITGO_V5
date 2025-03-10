@@ -22,6 +22,7 @@ namespace BCITGO_FINAL.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
             return View(await _context.User.ToListAsync());
         }
 
@@ -39,7 +40,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
             return View(user);
         }
 
@@ -62,6 +63,7 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
             return View(user);
         }
 
@@ -78,6 +80,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
+            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
             return View(user);
         }
 
@@ -113,6 +116,7 @@ namespace BCITGO_FINAL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
             return View(user);
         }
 
@@ -130,7 +134,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
             return View(user);
         }
 

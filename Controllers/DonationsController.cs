@@ -23,6 +23,7 @@ namespace BCITGO_FINAL.Controllers
         // GET: Donations
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Donations";  // Set the page title for Donations index - ADDED
             return View(await _context.Donation.ToListAsync());
         }
 
@@ -40,13 +41,14 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Donation Details";  // Set the page title for Donation details - ADDED
             return View(donation);
         }
 
         // GET: Donations/Create
         public IActionResult Create()
         {
+            ViewData["Title"] = "Create Donation";  // Set the page title for Create donation page - ADDED
             return View();
         }
 
@@ -63,6 +65,7 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Create Donation";  // Set the page title for Create donation page - ADDED
             return View(donation);
         }
 
@@ -79,6 +82,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
+            ViewData["Title"] = "Edit Donation";  // Set the page title for Edit donation page - ADDED
             return View(donation);
         }
 
@@ -114,6 +118,7 @@ namespace BCITGO_FINAL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Edit Donation";  // Set the page title for Edit donation page - ADDED
             return View(donation);
         }
 
@@ -131,7 +136,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Delete Donation";  // Set the page title for Delete donation page - ADDED
             return View(donation);
         }
 

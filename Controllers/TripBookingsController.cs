@@ -22,6 +22,7 @@ namespace BCITGO_FINAL.Controllers
         // GET: TripBookings
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
             return View(await _context.TripBooking.ToListAsync());
         }
 
@@ -37,9 +38,10 @@ namespace BCITGO_FINAL.Controllers
                 .FirstOrDefaultAsync(m => m.BookingID == id);
             if (tripBooking == null)
             {
+
                 return NotFound();
             }
-
+            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
             return View(tripBooking);
         }
 
@@ -62,6 +64,7 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
             return View(tripBooking);
         }
 
@@ -78,6 +81,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
+            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
             return View(tripBooking);
         }
 
@@ -113,6 +117,7 @@ namespace BCITGO_FINAL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
             return View(tripBooking);
         }
 
@@ -130,7 +135,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
             return View(tripBooking);
         }
 

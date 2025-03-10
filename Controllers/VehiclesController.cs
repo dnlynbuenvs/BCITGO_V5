@@ -22,6 +22,7 @@ namespace BCITGO_FINAL.Controllers
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(await _context.Vehicle.ToListAsync());
         }
 
@@ -39,13 +40,14 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(vehicle);
         }
 
         // GET: Vehicles/Create
         public IActionResult Create()
         {
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View();
         }
 
@@ -62,6 +64,7 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(vehicle);
         }
 
@@ -78,6 +81,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(vehicle);
         }
 
@@ -113,6 +117,7 @@ namespace BCITGO_FINAL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(vehicle);
         }
 
@@ -130,7 +135,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(vehicle);
         }
 

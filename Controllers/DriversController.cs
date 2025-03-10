@@ -22,6 +22,7 @@ namespace BCITGO_FINAL.Controllers
         // GET: Drivers
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(await _context.Driver.ToListAsync());
         }
 
@@ -39,7 +40,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(driver);
         }
 
@@ -62,6 +63,7 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(driver);
         }
 
@@ -78,6 +80,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
+            ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(driver);
         }
 
@@ -113,6 +116,7 @@ namespace BCITGO_FINAL.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(driver);
         }
 
@@ -130,7 +134,7 @@ namespace BCITGO_FINAL.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(driver);
         }
 

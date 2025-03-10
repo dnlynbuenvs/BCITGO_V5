@@ -152,14 +152,295 @@ _______________________________________
     - Model Class - *the model you want to scaffold (e.g., `TripPosting`, `User`, etc.)*
     - DbContextClass - Select the `ApplicationDbContext` that you need.
 
+2. To check if it is successful, check the `Views`, the `Donations` folder should have generated CRUD classes.
+
 This will generate the views and controller methods for CRUD operations.
-_______________________________________
+_________________________________________
 
 <!-- STEP 9 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 9 -  Update Title & Navigation Links ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 9 -  Update Controllers ** </h2>
 
+#### In this step, I will explain the things that you need to edit on each controller and the relation on the `_Layout.cshtml`
 
+### 1. Home Controller - *Add the following code below:*
+*  **Index**
+   -   Returns the Index view - this is a key-value pair that stores the page title you want to display.
 
+   ```csharp
+       public IActionResult Index()
+    {
+        ViewData["Title"] = "Home";  // Set the page title here - ADDED
+        return View();
+    }
+    ```
+    * Relation to `_Layout.cshtml`
+    ```csharp
+    <title>@ViewData["Title"] BCIT GO</title>
+    ```
+
+* **Privacy**
+    - Privacy action method: returns the Privacy view, this is a key-value pair that stores the page title you want to display.
+    - This title will be used when the Privacy view is loaded.
+    ```csharp
+        public IActionResult Privacy()
+    {
+        ViewData["Title"] = "Privacy";  // Set the page title here - ADDED
+        return View();
+    }
+    ```
+    * Relation to `_Layout.cshtml`
+    ```csharp
+    <title>@ViewData["Title"] BCIT GO</title>
+    ```
+### 2. All other controllers created for CRUD Scaffolding - *Add the following code below:*
+* Add `ViewData["Title"]`  to each action method.
+    - **Index:** *Set to "Donations".*
+    - **Details:** *Set to "Donation Details".*
+    - **Create:** *Set to "Create Donation".*
+    - **Edit:** *Set to "Edit Donation".*
+    - **Delete:** *Set to "Delete Donation".*   
+* This ensures that when any of these actions are executed, the page title will be dynamically set in the _Layout.cshtml file.
+* Check my code for reference > find comment `-ADDED`
+
+### ⁉️ EXPLANATION: Controller GET - POST Action 
+
+**GET: Donations/Index**
+
+```csharp
+public async Task<IActionResult> Index()
+{
+    ViewData["Title"] = "Donations";  // Set the page title for Donations index
+    return View(await _context.Donation.ToListAsync());
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action is responsible for displaying the list of donations to the user.
+- **ViewData["Title"] = "Donations";**: Sets the page title to "Donations" that will be shown in the browser tab (based on _Layout.cshtml).
+- **return View(await _context.Donation.ToListAsync());**: Retrieves all the donations from the database using `Entity Framework` (EF) asynchronously and sends them to the view. It calls `ToListAsync()` to fetch all donations and returns the view that will display the list.
+
+---
+
+**GET: Donations/Details/5**
+
+```csharp
+public async Task<IActionResult> Details(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var donation = await _context.Donation
+        .FirstOrDefaultAsync(m => m.DonationID == id);
+    if (donation == null)
+    {
+        return NotFound();
+    }
+
+    ViewData["Title"] = "Donation Details";  // Set the page title for Donation details
+    return View(donation);
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action fetches the details of a specific donation (identified by its `id`) and displays them to the user.
+- **id == null**: If no ID is passed (e.g., a user tries to visit `/Donations/Details/` without an ID), it returns a "NotFound" result.
+- **var donation = await _context.Donation...**: It queries the `Donation` table for the specific record where the `DonationID` matches the provided `id`.
+- **ViewData["Title"] = "Donation Details";**: Sets the page title to "Donation Details" which will be displayed in the browser tab.
+- **return View(donation);**: Passes the donation object to the `Details` view for rendering.
+
+---
+
+**GET: Donations/Create**
+
+```csharp
+public IActionResult Create()
+{
+    ViewData["Title"] = "Create Donation";  // Set the page title for Create donation page
+    return View();
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action displays the form for creating a new donation.
+- **ViewData["Title"] = "Create Donation";**: Sets the page title to "Create Donation" for the page.
+- **return View();**: Returns an empty form (since it's a GET request, we just want to show the form). The view will allow the user to input new donation details.
+
+---
+
+**POST: Donations/Create**
+
+```csharp
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Create([Bind("DonationID,Name,Amount,DateTime,UserID")] Donation donation)
+{
+    if (ModelState.IsValid)
+    {
+        _context.Add(donation);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+    return View(donation);
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action receives the form data submitted by the user (via POST) for creating a new donation.
+- **[HttpPost]**: Indicates that this action handles POST requests (form submissions).
+- **[ValidateAntiForgeryToken]**: Helps protect against cross-site request forgery (CSRF) attacks by validating that the request comes from a valid source.
+- **if (ModelState.IsValid)**: Checks if the model (data) passed by the user is valid (e.g., all required fields filled in correctly).
+- **_context.Add(donation);**: Adds the new `donation` record to the `DbContext` (i.e., prepares to insert it into the database).
+- **await _context.SaveChangesAsync();**: Asynchronously saves the new donation to the database.
+- **return RedirectToAction(nameof(Index));**: After saving, it redirects the user to the `Index` action, which will show the updated list of donations.
+- **return View(donation);**: If the model is not valid (e.g., required fields are missing), it redisplays the form with validation errors.
+
+---
+
+**GET: Donations/Edit/5**
+
+```csharp
+public async Task<IActionResult> Edit(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var donation = await _context.Donation.FindAsync(id);
+    if (donation == null)
+    {
+        return NotFound();
+    }
+
+    ViewData["Title"] = "Edit Donation";  // Set the page title for Edit donation page
+    return View(donation);
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action retrieves the specific donation record (identified by its `id`) and shows the form to edit it.
+- **id == null**: If the `id` is not provided, return "NotFound" (similar to the `Details` action).
+- **var donation = await _context.Donation.FindAsync(id);**: Fetches the donation record from the database based on the provided `id`.
+- **ViewData["Title"] = "Edit Donation";**: Sets the page title to "Edit Donation".
+- **return View(donation);**: Passes the `donation` object to the view for editing.
+
+---
+
+**POST: Donations/Edit/5**
+
+```csharp
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(int id, [Bind("DonationID,Name,Amount,DateTime,UserID")] Donation donation)
+{
+    if (id != donation.DonationID)
+    {
+        return NotFound();
+    }
+
+    if (ModelState.IsValid)
+    {
+        try
+        {
+            _context.Update(donation);
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!DonationExists(donation.DonationID))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return RedirectToAction(nameof(Index));
+    }
+    return View(donation);
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action processes the submitted data from the donation edit form and updates the existing donation in the database.
+- **[HttpPost]**: Handles POST requests when the user submits the form.
+- **if (id != donation.DonationID)**: Ensures that the `id` in the URL matches the `DonationID` in the form (helps prevent form tampering).
+- **ModelState.IsValid**: Validates the form data.
+- **_context.Update(donation);**: Updates the donation record in the database.
+- **await _context.SaveChangesAsync();**: Saves the updated record to the database.
+- **catch (DbUpdateConcurrencyException)**: Handles concurrency issues (e.g., another user has updated the donation at the same time).
+- **return RedirectToAction(nameof(Index));**: After updating, the user is redirected to the `Index` action to see the updated list of donations.
+- **return View(donation);**: If the form data is not valid, redisplay the edit form with error messages.
+
+---
+
+**GET: Donations/Delete/5**
+
+```csharp
+public async Task<IActionResult> Delete(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
+    }
+
+    var donation = await _context.Donation
+        .FirstOrDefaultAsync(m => m.DonationID == id);
+    if (donation == null)
+    {
+        return NotFound();
+    }
+
+    ViewData["Title"] = "Delete Donation";  // Set the page title for Delete donation page
+    return View(donation);
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action displays the confirmation page for deleting a specific donation.
+- **id == null**: If no `id` is passed, return "NotFound".
+- **var donation = await _context.Donation...**: Retrieves the donation from the database using the provided `id`.
+- **ViewData["Title"] = "Delete Donation";**: Sets the page title to "Delete Donation".
+- **return View(donation);**: Passes the donation object to the view to display the delete confirmation.
+
+---
+
+**POST: Donations/Delete/5**
+
+```csharp
+[HttpPost, ActionName("Delete")]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var donation = await _context.Donation.FindAsync(id);
+    if (donation != null)
+    {
+        _context.Donation.Remove(donation);
+    }
+
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
+```
+
+#### **Explanation:**
+- **Purpose:** This action performs the actual deletion of the donation.
+- **[HttpPost, ActionName("Delete")]**: Specifies that this is a POST action for the "Delete" view (i.e., confirms the deletion).
+- **_context.Donation.Remove(donation);**: Removes the specified donation from the `DbContext`.
+- **await _context.SaveChangesAsync();**: Saves the changes to the database (i.e., deletes the donation).
+- **return RedirectToAction(nameof(Index));**: Redirects to the `Index` action to display the updated donation list after deletion.
+
+_________________________________________
+
+<!-- STEP 10 -->
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 10 -  Update Title & Navigation Links ** </h2>
+
+1. Review your layout page under `views` > `shared` > `_Layout.cshtml`
+2. Ensure that navigation links are correctly set up to link to the appropriate pages.
+    - This should include adding updated links to your top navigation bar and setting the title in the layout for each page.
 
 
 
