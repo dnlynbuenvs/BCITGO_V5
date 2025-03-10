@@ -13,7 +13,7 @@ Looking at the list of things you've completed so far, here's what you should do
    - **Ensure**: Navigation links are correctly set up to link to the appropriate pages.
    - This should include adding updated links to your top navigation bar and setting the title in the layout for each page.
 
-### 3. **Seed Test Data (SeedData Class)**:
+### //3. **Seed Test Data (SeedData Class)**:
    - **Next Step**: Ensure that your `DbInitializer` class is correctly set up to seed initial data when the database is first created. You've already created this, but ensure it gets called properly in `Program.cs` by running `DbInitializer.Initialize(context);`.
    - **Focus Area**: Double-check the database after running the app to verify that the test data for users, donations, trip postings, etc., is added successfully.
 
