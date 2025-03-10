@@ -436,12 +436,56 @@ public async Task<IActionResult> DeleteConfirmed(int id)
 _________________________________________
 
 <!-- STEP 10 -->
-<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 10 -  Update Title & Navigation Links ** </h2>
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 10 -  Update _Layout.cshtml ** </h2>
 
-1. Review your layout page under `views` > `shared` > `_Layout.cshtml`
-2. Ensure that navigation links are correctly set up to link to the appropriate pages.
-    - This should include adding updated links to your top navigation bar and setting the title in the layout for each page.
+*The purpose of updating the `_Layout.cshtml` page is to define the common structure, design, and reusable elements (such as headers, footers, and navigation links) that are shared across multiple views in the application, ensuring consistency throughout the site.*
 
+**1. Review your layout page under `views` > `shared` > `_Layout.cshtml`**
+
+  * Check my code, all modified code have comment `-ADDED-`
+
+**2. Ensure that navigation links are correctly set up to link to the appropriate pages.**
+  * This should include adding updated links to your top navigation bar and setting the title in the layout for each page.
+
+_________________________________________
+<!-- STEP 11 -->
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 11 -  Update Views ** </h2>
+
+Great job on updating the `_Layout.cshtml`! Now that the layout is set up, the next steps involve:
+
+### 1. **Updating Views**
+   - Go through each of your views in the `Views` folder (e.g., `Donations`, `TripPostings`, etc.) and ensure that they are properly linked to the layout and displaying data correctly.
+   - Check that each view has the correct `@ViewData["Title"]` set for the page title. For example:
+     ```csharp
+     @ViewData["Title"] = "Donations";  // For the Donations Index page
+     ```
+
+### 2. **Test Seed Data**
+   - Ensure that your `DbInitializer` is correctly seeding data into the database when the app runs (you should have tested it when you ran `Update-Database`).
+   - Confirm that the seeded data is visible on the UI when you go to the relevant pages like `Donations`, `TripPostings`, etc.
+
+### 3. **Verify CRUD Operations**
+   - Test all the CRUD operations (Create, Read, Update, Delete) to ensure they are functioning properly. For instance:
+     - Can you add a donation?
+     - Can you update a donation?
+     - Can you view the donation details?
+     - Can you delete a donation?
+
+### 4. **Navigation Links**
+   - Double-check that all your navigation links (like the ones in the `_Layout.cshtml` header) are correctly set and lead to the corresponding pages. For example, check if `Donations`, `Trips`, and `Privacy` links in the navigation bar open the appropriate pages.
+
+### 5. **Implementing Filters and Sorting (If applicable)**
+   - If any views require text filters or dropdowns (like the `SelectList` for filtering data), ensure these are implemented and functioning.
+   - For example, you might need a dropdown to filter trip postings by status or date.
+
+### 6. **Model Validation**
+   - Check that all models (like `Donation`, `TripPosting`, etc.) have the appropriate validation attributes and that invalid inputs are handled gracefully.
+
+### 7. **Final Check**
+   - Ensure that all the required pages and their functionality are in place.
+   - Do a final check for responsiveness and make sure everything is working as expected across different screen sizes.
+
+Would you like help with any of these steps in detail?
 
 
 
