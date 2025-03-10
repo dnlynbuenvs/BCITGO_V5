@@ -447,6 +447,11 @@ _________________________________________
 **2. Ensure that navigation links are correctly set up to link to the appropriate pages.**
   * This should include adding updated links to your top navigation bar and setting the title in the layout for each page.
 
+### ⁉️ VERIFY: _Layout.cshtml
+* Run Application `Ctrl + F5` or press `run: https`
+* Check navigation links
+* Inspect page titles
+
 _________________________________________
 <!-- STEP 11 -->
 <h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> **STEP 11 -  Update Views ** </h2>
