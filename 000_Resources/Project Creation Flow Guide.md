@@ -73,6 +73,17 @@ _______________________________________
 1. Under `data` folder, create `DbInitializert` class inside.
 2. Setup > check my code for reference
 
+## 5️⃣ Define the Model Classes 
+_______________________________________
+### This represents the structure of your database tables and allows you to interact with the database using Entity Framework Core for data manipulation. ####
+
+1. Under `models` folder, create class for each table. *(see sample below)*
+
+<img src="./images/1_ClassSample.png" alt="Model Classes" width="250"/>
+
+
+
+
 
 
 
