@@ -1,4 +1,4 @@
-﻿namespace BCITGO_FINAL._000_ProjectDocumentation.Data
+﻿namespace BCITGO_FINAL.Data
 {
     public class ApplicationDbContext
     {
