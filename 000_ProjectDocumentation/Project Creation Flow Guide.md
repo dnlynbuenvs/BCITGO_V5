@@ -12,20 +12,20 @@ _______________________________________
 ### **2.  Required Packages for Your ASP.NET MVC Project**  
 
 #### **✅ Essential for Database & Entity Framework**  
-1.  `Microsoft.EntityFrameworkCore` **(v8.0.12)**  (For Entity Framework Core ORM)
-2.  `Microsoft.EntityFrameworkCore.SqlServer` **(v8.0.12)** (For SQL Server)  
-3.  `Microsoft.EntityFrameworkCore.Tools` **(v8.0.12)** (For Migrations)  
+-  `Microsoft.EntityFrameworkCore` **(v8.0.12)**  (For Entity Framework Core ORM)
+-  `Microsoft.EntityFrameworkCore.SqlServer` **(v8.0.12)** (For SQL Server)  
+-  `Microsoft.EntityFrameworkCore.Tools` **(v8.0.12)** (For Migrations)  
 
 
 #### **✅ For ASP.NET Identity (Only if Using Authentication)**  
-1.  `Microsoft.AspNetCore.Identity.EntityFrameworkCore` **(v8.0.12)** (For User Authentication & Identity Management) 
-2. `Microsoft.AspNetCore.Identity.UI`**(v8.0.12)** (For Prebuilt Identity UI)
+-  `Microsoft.AspNetCore.Identity.EntityFrameworkCore` **(v8.0.12)** (For User Authentication & Identity Management) 
+- `Microsoft.AspNetCore.Identity.UI`**(v8.0.12)** (For Prebuilt Identity UI)
 
 
 
 #### **✅ For MVC Views & UI Components**  
-1.  `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` **(v8.0.00)** (For Razor View Updates Without Restarting)  
-2.  `Microsoft.AspNetCore.Mvc.NewtonsoftJson` **(v8.0.00)** (For JSON Serialization Support)  
+-  `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` **(v8.0.00)** (For Razor View Updates Without Restarting)  
+-  `Microsoft.AspNetCore.Mvc.NewtonsoftJson` **(v8.0.00)** (For JSON Serialization Support)  
 
 
 
@@ -38,8 +38,33 @@ _______________________________________
 _______________________________________
 
 
-## 2️⃣ Setup Database
+## 2️⃣ Setup Connection String
 _______________________________________
-### **1.  Required Packages for Your ASP.NET MVC Project**   test
+### 1. Modify `appsettings.json` to Add the Connection String ####
+
+At the top of
+```csharp
+{
+  "Logging": {
+```
+
+add 
+```csharp
+{
+
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=BCITGODB;User ID=Dannie Password=dannie;Trusted_Connection=True;Encrypt=False"
+
+  },
+```
+In your `appsettings.json`, add a connection string for SQL Server:
+
+
+## 3️⃣ Setup ApplicationDbContext asd asd
+
+atest test test test
+_______________________________________
+
+
 
 
