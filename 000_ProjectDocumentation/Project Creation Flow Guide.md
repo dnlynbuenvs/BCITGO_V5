@@ -42,13 +42,13 @@ _______________________________________
 _______________________________________
 ### 1. Modify `appsettings.json` to Add the Connection String ####
 
-At the top of
+At the top of:
 ```csharp
 {
   "Logging": {
 ```
 
-add 
+add the code below:
 ```csharp
 {
 
@@ -57,13 +57,20 @@ add
 
   },
 ```
-In your `appsettings.json`, add a connection string for SQL Server:
 
-
-## 3️⃣ Setup ApplicationDbContext asd asd
-
-atest test test test
+## 3️⃣ Setup ApplicationDbContext
 _______________________________________
+1.  Create `data` folder and create `ApplicationDbContext` class inside.
+2. Setup > check my code for reference
+
+## 4️⃣Create DbInitializer
+_______________________________________
+### DbInitializer is for seeding data (if you need to add initial records or test data to your tables) ####
+
+
+
+
+
 
 
 
