@@ -1,4 +1,6 @@
-﻿namespace BCITGO_FINAL.Data
+﻿using BCITGO_FINAL.Models;
+
+namespace BCITGO_FINAL.Data
 {
     public class DbInitializer
     {

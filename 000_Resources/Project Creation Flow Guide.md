@@ -1,6 +1,6 @@
 # **📖 PROJECT FLOW CREATION GUIDE 📖** #
 
-## 1️⃣ Install Packages
+## 1️⃣.  Install Packages
 _______________________________________
 
 ### **1. Install the Required Packages for ASP.NET MVC Project**
@@ -38,7 +38,7 @@ _______________________________________
 _______________________________________
 
 
-## 2️⃣ Setup Connection String
+## 2️⃣.  Setup Connection String
 _______________________________________
 ### 1. Modify `appsettings.json` to Add the Connection String ####
 
@@ -57,8 +57,15 @@ add the code below:
 
   },
 ```
+## 3️⃣.  Setup Program.cs
+_______________________________________
+### This configures the application's services, like the database connection and dependency injection, ensuring proper interaction with components like Entity Framework.####
+1. Check my code for reference
+2. Check comments `-added` and add those things to your code.
 
-## 3️⃣ Setup ApplicationDbContext
+
+
+## 4️⃣.  Setup ApplicationDbContext
 _______________________________________
 ### This manages the connection to the database and provides access to the tables (models) in the database for performing operations like adding, updating, or retrieving data. ####
 
@@ -66,20 +73,27 @@ _______________________________________
 1.  Create `data` folder and create `ApplicationDbContext` class inside.
 2. Setup > check my code for reference
 
-## 4️⃣Create DbInitializer
+## 5️⃣. Create DbInitializer
 _______________________________________
 ### DbInitializer is for seeding data (if you need to add initial records or test data to your tables) ####
 
 1. Under `data` folder, create `DbInitializert` class inside.
 2. Setup > check my code for reference
 
-## 5️⃣ Define the Model Classes 
+## 6️⃣. Define the Model Classes 
 _______________________________________
 ### This represents the structure of your database tables and allows you to interact with the database using Entity Framework Core for data manipulation. ####
 
 1. Under `models` folder, create class for each table. *(see sample below)*
+2. Setup and check my code for reference.
 
 <img src="./images/1_ClassSample.png" alt="Model Classes" width="250"/>
+
+
+## 7️⃣. Define the Model Classes 
+_______________________________________
+### This represents the structure of your database tables and allows you to interact with the database using Entity Framework Core for data manipulation. ####
+
 
 
 
