@@ -62,6 +62,10 @@ namespace BCITGO_FINAL.Controllers
         // GET: Drivers/Create
         public IActionResult Create()
         {
+
+            ViewData["Title"] = "Driver";  // Set the page title for Donations index - ADDED
+            ViewData["UserID"] = new SelectList(_context.User,"UserID", "Name"); // Populate Driver dropdown - ADDED
+
             return View();
         }
 
@@ -78,6 +82,8 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Name", driver.UserID);
             ViewData["Title"] = "Drivers";  // Set the page title for Donations index - ADDED
             return View(driver);
         }

@@ -20,24 +20,24 @@ namespace BCITGO_FINAL.Controllers
         }
 
 
-        // GET: Donations
+        // GET: TripPostings
         public async Task<IActionResult> Index(string searchString) //ADDED THIS > Index(string searchString) - new
         {
             ViewData["Title"] = "TripPostings";  // Set the page title for Donations index - ADDED
 
             //ADDED CODE BELOW - new
-            var donations = from d in _context.Donation
+            var TripPosting = from d in _context.Donation
                             select d;
 
             // If search string is provided, filter donations by Name. - ADDED
             if (!string.IsNullOrEmpty(searchString))
             {
-                donations = donations.Where(d => d.Name.Contains(searchString)); // Filter by donor name
+                TripPosting = TripPosting.Where(d => d.Name.Contains(searchString)); // Filter by donor name
             }
 
             ViewData["SearchString"] = searchString;  // Pass searchString to the View
 
-            return View(await _context.Donation.ToListAsync());
+            return View(await _context.TripPosting.ToListAsync());
         }
 
         // GET: TripPostings/Details/5
@@ -61,7 +61,9 @@ namespace BCITGO_FINAL.Controllers
         // GET: TripPostings/Create
         public IActionResult Create()
         {
-            ViewData["Title"] = "TripPosting";  // Set the page title for Donations index - ADDED
+            ViewData["Title"] = "Create Trip Posting";  // Set the page title - ADDED
+            ViewData["DriverID"] = new SelectList(_context.Driver, "DriverID", "DriverID"); // Populate Driver dropdown - ADDED
+            ViewData["VehicleID"] = new SelectList(_context.Vehicle, "VehicleID", "LicensePlate"); // Populate Vehicle dropdown - ADDED
             return View();
         }
 
@@ -78,7 +80,10 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Title"] = "TripPosting";  // Set the page title for Donations index - ADDED
+            // Re-populate dropdowns if form submission fails
+            ViewData["DriverID"] = new SelectList(_context.Driver, "DriverID", "DriverID", tripPosting.DriverID);
+            ViewData["VehicleID"] = new SelectList(_context.Vehicle, "VehicleID", "LicensePlate", tripPosting.VehicleID);
+            ViewData["Title"] = "Create Trip Posting";  // Set the page title - ADDED
             return View(tripPosting);
         }
 

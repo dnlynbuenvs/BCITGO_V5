@@ -20,24 +20,24 @@ namespace BCITGO_FINAL.Controllers
         }
 
 
-        // GET: Donations
+        // GET: Vehicles
         public async Task<IActionResult> Index(string searchString) //ADDED THIS > Index(string searchString) - new
         {
             ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
 
             //ADDED CODE BELOW - new
-            var donations = from d in _context.Donation
+            var vehicle = from d in _context.Donation
                             select d;
 
             // If search string is provided, filter donations by Name. - ADDED
             if (!string.IsNullOrEmpty(searchString))
             {
-                donations = donations.Where(d => d.Name.Contains(searchString)); // Filter by donor name
+                vehicle = vehicle.Where(d => d.Name.Contains(searchString)); // Filter by donor name
             }
 
             ViewData["SearchString"] = searchString;  // Pass searchString to the View
 
-            return View(await _context.Donation.ToListAsync());
+            return View(await _context.Vehicle.ToListAsync());
         }
 
         // GET: Vehicles/Details/5
@@ -62,6 +62,8 @@ namespace BCITGO_FINAL.Controllers
         public IActionResult Create()
         {
             ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
+            ViewData["DriverID"] = new SelectList(_context.Driver, "DriverID", "UserID"); // Populate Driver dropdown - ADDED
+
             return View();
         }
 
@@ -78,6 +80,8 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["DriverID"] = new SelectList(_context.Driver, "DriverID", "UserID", vehicle.DriverID);
             ViewData["Title"] = "Vehicle";  // Set the page title for Donations index - ADDED
             return View(vehicle);
         }

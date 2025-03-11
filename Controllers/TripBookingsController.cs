@@ -20,25 +20,32 @@ namespace BCITGO_FINAL.Controllers
         }
 
 
-        // GET: Donations
+        // GET: TripBookings
         public async Task<IActionResult> Index(string searchString) //ADDED THIS > Index(string searchString) - new
         {
             ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
 
             //ADDED CODE BELOW - new
-            var donations = from d in _context.Donation
-                            select d;
+            var TripBooking = from tb in _context.TripBooking
+                               .Include(tb => tb.TripPosting) // Load related TripPosting data
+                               .Include(tb => tb.User) // Load related User data
+                              select tb;
+
 
             // If search string is provided, filter donations by Name. - ADDED
             if (!string.IsNullOrEmpty(searchString))
             {
-                donations = donations.Where(d => d.Name.Contains(searchString)); // Filter by donor name
+                TripBooking = TripBooking
+                    .Where(tb => tb.User.Name.Contains(searchString) ||
+                                 tb.TripPostingID.ToString().Contains(searchString)); // ✅ Search by User Name or TripPostingID
             }
+
+
 
             ViewData["SearchString"] = searchString;  // Pass searchString to the View
 
 
-            return View(await _context.Donation.ToListAsync());
+            return View(await _context.TripBooking.ToListAsync());
         }
 
         // GET: TripBookings/Details/5
@@ -63,6 +70,10 @@ namespace BCITGO_FINAL.Controllers
         // GET: TripBookings/Create
         public IActionResult Create()
         {
+
+            ViewData["Title"] = "Create Trip Posting";  // Set the page title - ADDED
+            ViewData["TripPostingID"] = new SelectList(_context.TripPosting, "TripPostingID", "StartLocation");
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Name");
             return View();
         }
 
@@ -79,7 +90,13 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Title"] = "TripBookings";  // Set the page title for Donations index - ADDED
+            ViewData["TripPostingID"] = new SelectList(_context.TripPosting, "TripPostingID", "TripPostingID", tripBooking.TripPostingID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Name", tripBooking.UserID);
+            ViewData["TripPostingID"] = new SelectList(_context.TripPosting, "TripPostingID", "TripPostingID", tripBooking.TripPostingID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserID", "Name", tripBooking.UserID);
+
+
+            ViewData["Title"] = "Create Trip Posting";  // Set the page title - ADDED
             return View(tripBooking);
         }
 

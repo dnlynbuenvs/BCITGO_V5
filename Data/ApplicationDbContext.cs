@@ -9,7 +9,7 @@ namespace BCITGO_FINAL.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
-    }    
+        }
 
         public DbSet<Donation> Donation { get; set; }
         public DbSet<TripBooking> TripBooking { get; set; }
@@ -22,6 +22,7 @@ namespace BCITGO_FINAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Donation>().ToTable("Donation");
             modelBuilder.Entity<TripBooking>().ToTable("TripBooking");
             modelBuilder.Entity<User>().ToTable("User");
@@ -29,7 +30,23 @@ namespace BCITGO_FINAL.Data
             modelBuilder.Entity<Driver>().ToTable("Driver");
             modelBuilder.Entity<Review>().ToTable("Review");
             modelBuilder.Entity<Vehicle>().ToTable("Vehicle");
+
+            modelBuilder.Entity<TripPosting>()
+                .HasOne(tp => tp.Vehicle)
+                .WithMany(v => v.TripPostings)
+                .HasForeignKey(tp => tp.VehicleID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Vehicle>()
+                .HasOne(v => v.Driver)
+                .WithMany()
+                .HasForeignKey(v => v.DriverID)
+                .OnDelete(DeleteBehavior.Restrict); // ✅ Prevents cascade delete on Vehicle
+
+
         }
+
     }
 }
 

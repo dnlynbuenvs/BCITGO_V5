@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace BCITGO_FINAL.Models
 {
@@ -11,17 +12,21 @@ namespace BCITGO_FINAL.Models
 
         public int TripPostingID { get; set; }
 
-        [ForeignKey("Driver")]
+
+
+        [ForeignKey("DriverID")]
         [Display(Name = "Driver ID")] // Added Display Name
-
-
         public int DriverID { get; set; }
+        [DeleteBehavior(DeleteBehavior.Restrict)] // 🚀 Prevents cascade delete issues for Driver
+        public required Driver Driver { get; set; } // Navigation property to Driver - 3ADDED
 
-        [ForeignKey("Vehicle")]
+
+        [ForeignKey("VehicleID")]
         [Display(Name = "Vehicle ID")] // Added Display Name
-
-
         public int VehicleID { get; set; }
+        [DeleteBehavior(DeleteBehavior.Restrict)] // 🚀 Prevents cascade delete issues for Vehicle
+        public required Vehicle Vehicle { get; set; } // Navigation property to Vehicle - 3ADDED
+
 
         [Required]
         [Display(Name = "Start Location")] // Added Display Name
@@ -41,7 +46,9 @@ namespace BCITGO_FINAL.Models
 
         [Display(Name = "Status")] // Added Display Name
 
-        public string Status { get; set; }
+        public required string Status { get; set; }
+        public ICollection<TripBooking> TripBookings { get; set; } = new List<TripBooking>(); // Navigation property for related bookings - 3ADDED
+
 
 
 

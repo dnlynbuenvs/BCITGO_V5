@@ -51,36 +51,6 @@ namespace BCITGO_FINAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Donation",
-                columns: table => new
-                {
-                    DonationID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Donation", x => x.DonationID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Driver",
-                columns: table => new
-                {
-                    DriverID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    DrivingLicense = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Driver", x => x.DriverID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Review",
                 columns: table => new
                 {
@@ -88,47 +58,12 @@ namespace BCITGO_FINAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TripPostingID = table.Column<int>(type: "int", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    ReviewDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReviewDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ReviewDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Review", x => x.ReviewID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TripBooking",
-                columns: table => new
-                {
-                    BookingID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TripPostingID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    SeatsBook = table.Column<int>(type: "int", nullable: false),
-                    BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TripBooking", x => x.BookingID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TripPosting",
-                columns: table => new
-                {
-                    TripPostingID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DriverID = table.Column<int>(type: "int", nullable: false),
-                    VehicleID = table.Column<int>(type: "int", nullable: false),
-                    StartLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EndLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SeatAvailable = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TripPosting", x => x.TripPostingID);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,23 +80,6 @@ namespace BCITGO_FINAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.UserID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vehicle",
-                columns: table => new
-                {
-                    VehicleID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DriverID = table.Column<int>(type: "int", nullable: false),
-                    LicensePlate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vehicle", x => x.VehicleID);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,6 +188,130 @@ namespace BCITGO_FINAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Donation",
+                columns: table => new
+                {
+                    DonationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Donation", x => x.DonationID);
+                    table.ForeignKey(
+                        name: "FK_Donation_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Driver",
+                columns: table => new
+                {
+                    DriverID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    DrivingLicense = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Driver", x => x.DriverID);
+                    table.ForeignKey(
+                        name: "FK_Driver_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Vehicle",
+                columns: table => new
+                {
+                    VehicleID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DriverID = table.Column<int>(type: "int", nullable: false),
+                    LicensePlate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicle", x => x.VehicleID);
+                    table.ForeignKey(
+                        name: "FK_Vehicle_Driver_DriverID",
+                        column: x => x.DriverID,
+                        principalTable: "Driver",
+                        principalColumn: "DriverID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TripPosting",
+                columns: table => new
+                {
+                    TripPostingID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DriverID = table.Column<int>(type: "int", nullable: false),
+                    VehicleID = table.Column<int>(type: "int", nullable: false),
+                    StartLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EndLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SeatAvailable = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TripPosting", x => x.TripPostingID);
+                    table.ForeignKey(
+                        name: "FK_TripPosting_Driver_DriverID",
+                        column: x => x.DriverID,
+                        principalTable: "Driver",
+                        principalColumn: "DriverID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TripPosting_Vehicle_VehicleID",
+                        column: x => x.VehicleID,
+                        principalTable: "Vehicle",
+                        principalColumn: "VehicleID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TripBooking",
+                columns: table => new
+                {
+                    BookingID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TripPostingID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    SeatsBook = table.Column<int>(type: "int", nullable: false),
+                    BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TripBooking", x => x.BookingID);
+                    table.ForeignKey(
+                        name: "FK_TripBooking_TripPosting_TripPostingID",
+                        column: x => x.TripPostingID,
+                        principalTable: "TripPosting",
+                        principalColumn: "TripPostingID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TripBooking_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -308,6 +350,41 @@ namespace BCITGO_FINAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Donation_UserID",
+                table: "Donation",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Driver_UserID",
+                table: "Driver",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripBooking_TripPostingID",
+                table: "TripBooking",
+                column: "TripPostingID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripBooking_UserID",
+                table: "TripBooking",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripPosting_DriverID",
+                table: "TripPosting",
+                column: "DriverID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripPosting_VehicleID",
+                table: "TripPosting",
+                column: "VehicleID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vehicle_DriverID",
+                table: "Vehicle",
+                column: "DriverID");
         }
 
         /// <inheritdoc />
@@ -332,28 +409,28 @@ namespace BCITGO_FINAL.Migrations
                 name: "Donation");
 
             migrationBuilder.DropTable(
-                name: "Driver");
-
-            migrationBuilder.DropTable(
                 name: "Review");
 
             migrationBuilder.DropTable(
                 name: "TripBooking");
 
             migrationBuilder.DropTable(
-                name: "TripPosting");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TripPosting");
 
             migrationBuilder.DropTable(
                 name: "Vehicle");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Driver");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "User");
         }
     }
 }

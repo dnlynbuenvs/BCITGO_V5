@@ -658,5 +658,95 @@ This will allow users to filter results based on both text input and dropdown se
 * Run Application `Ctrl + F5` or press `run: https`
 * Navigate to donation index pages
 * Test the search functionality
+_____________________________________
+<!-- STEP 14 -->
+
+<h2 style="color:red; font-weight: bold; border-bottom: 3px solid #333; padding-bottom: 5px;"> STEP 14 -  Joining Related Tables in Details View </h2>
+
+Ensure that the **Details** page of your entities displays related data. For example, when viewing a `TripPosting`, you should display the driver’s name and vehicle details from the related `Driver` and `Vehicle` tables.
+
+Below is the order of code modification:
+#### **1. Modify Models**
+  - The models define the data structure and relationships, so they need to be set up before you can fetch and display the related data in the controller and views.
+
+    #### How to Modify Models?
+    a. Look at relationships: For instance, `Driver.cs` has a foreign key `UserID`. You need to check if you have the appropriate navigation property `(public User User { get; set; })` in your Driver.cs to fully load related data. 
+
+    add the code below on the last line before "}"
+
+    ```csharp
+    public int UserID { get; set; }  // Last Key
+
+    // Navigation property to access the related User
+    public User User { get; set; } // Add this line to include the related User
+
+    ```
+    b. Add data validation annotations for properties that require validation
+    ```csharp
+    [Required] //ADD
+    [StringLength(100, ErrorMessage = "License plate must be between 5 and 100 characters.", MinimumLength = 5)] //ADD
+    public string DrivingLicense { get; set; }
+
+    c. Display Names for User-Friendliness
+
+    ```csharp
+    [Display(Name = "User ID")] //ADD
+    public int UserID { get; set; }
+
+    [Display(Name = "Driving License")] //ADD
+    public string DrivingLicense { get; set; }
+
+    ``` 
+
+    c. Add a constructor to initialize properties with default values. Add on last part
+    ```csharp
+    public Driver()
+    {
+        DrivingLicense = string.Empty;  // Initialize DrivingLicense with an empty string
+    }
+    ```
+
+#### **2. Modify Controllers**
+  - The controller handles fetching the data and passing it to the view, so it's essential to modify the controller after the models are set up.
+#### **3. Modify Details under Views pages**
+  - The view is the last step because it just receives the data from the controller and displays it. Modifying the view is dependent on having the models and controller in place to properly handle and pass the related data.
+
+#### **4. On Package COnsole `dotnet ef migrations add UpdateRelatedData`>**
+#### **5. On Package COnsole `dotnet ef database update`>**
+
+
+____
+1. **Modify the Details View for Donations**:
+   - Go to `Views/Donations/Details.cshtml`.
+   - Add the related **User** data that is associated with the **Donation** in the view.
+
+2. **Add Code to Display Related User Data**:
+   In `Details.cshtml`, you need to display properties of the related **User** model (such as **Name**, **Phone Number**, **Description**, etc.) alongside the **Donation** details.
+
+   Example code to display **User Name**:
+   ```html
+   <dt class="col-sm-2">
+       @Html.DisplayNameFor(model => model.User.Name)
+   </dt>
+   <dd class="col-sm-10">
+       @Html.DisplayFor(model => model.User.Name)
+   </dd>
+   ```
+
+3. **Ensure the Controller Loads Related Data**:
+   In your **DonationsController**, ensure that you're including the related **User** data when querying for the **Donation**. You should already have this:
+
+   ```csharp
+   var donation = await _context.Donation
+       .Include(d => d.User) // This includes the related User data
+       .FirstOrDefaultAsync(m => m.DonationID == id);
+   ```
+
+#### **What to Check**:
+- Ensure that the `Details.cshtml` page is correctly displaying related **User** data.
+- Verify that you are using `@Html.DisplayFor(model => model.User.Name)` or similar for the related **User** properties.
+- Run the app and test the **Donation Details** page to see if the **User** data is displayed correctly.
+
+This step ensures that when you view a **Donation**'s details, you also see the **User's** information (such as name, email, etc.) associated with that donation.
 
 

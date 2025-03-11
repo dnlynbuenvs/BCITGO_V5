@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BCITGO_FINAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250310152002_InitialCreate")]
+    [Migration("20250311045147_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -48,6 +48,8 @@ namespace BCITGO_FINAL.Migrations
 
                     b.HasKey("DonationID");
 
+                    b.HasIndex("UserID");
+
                     b.ToTable("Donation", (string)null);
                 });
 
@@ -61,12 +63,15 @@ namespace BCITGO_FINAL.Migrations
 
                     b.Property<string>("DrivingLicense")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("DriverID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Driver", (string)null);
                 });
@@ -87,7 +92,8 @@ namespace BCITGO_FINAL.Migrations
 
                     b.Property<string>("ReviewDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("TripPostingID")
                         .HasColumnType("int");
@@ -119,6 +125,10 @@ namespace BCITGO_FINAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("BookingID");
+
+                    b.HasIndex("TripPostingID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("TripBooking", (string)null);
                 });
@@ -156,6 +166,10 @@ namespace BCITGO_FINAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("TripPostingID");
+
+                    b.HasIndex("DriverID");
+
+                    b.HasIndex("VehicleID");
 
                     b.ToTable("TripPosting", (string)null);
                 });
@@ -216,6 +230,8 @@ namespace BCITGO_FINAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VehicleID");
+
+                    b.HasIndex("DriverID");
 
                     b.ToTable("Vehicle", (string)null);
                 });
@@ -422,6 +438,77 @@ namespace BCITGO_FINAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BCITGO_FINAL.Models.Donation", b =>
+                {
+                    b.HasOne("BCITGO_FINAL.Models.User", "User")
+                        .WithMany("Donations")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.Driver", b =>
+                {
+                    b.HasOne("BCITGO_FINAL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.TripBooking", b =>
+                {
+                    b.HasOne("BCITGO_FINAL.Models.TripPosting", "TripPosting")
+                        .WithMany("TripBookings")
+                        .HasForeignKey("TripPostingID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BCITGO_FINAL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TripPosting");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.TripPosting", b =>
+                {
+                    b.HasOne("BCITGO_FINAL.Models.Driver", "Driver")
+                        .WithMany("TripPostings")
+                        .HasForeignKey("DriverID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BCITGO_FINAL.Models.Vehicle", "Vehicle")
+                        .WithMany("TripPostings")
+                        .HasForeignKey("VehicleID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.Vehicle", b =>
+                {
+                    b.HasOne("BCITGO_FINAL.Models.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -471,6 +558,26 @@ namespace BCITGO_FINAL.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.Driver", b =>
+                {
+                    b.Navigation("TripPostings");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.TripPosting", b =>
+                {
+                    b.Navigation("TripBookings");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.User", b =>
+                {
+                    b.Navigation("Donations");
+                });
+
+            modelBuilder.Entity("BCITGO_FINAL.Models.Vehicle", b =>
+                {
+                    b.Navigation("TripPostings");
                 });
 #pragma warning restore 612, 618
         }

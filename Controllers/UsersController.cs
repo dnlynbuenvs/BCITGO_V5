@@ -20,24 +20,24 @@ namespace BCITGO_FINAL.Controllers
         }
 
 
-        // GET: Donations
+        // GET: Users
         public async Task<IActionResult> Index(string searchString) //ADDED THIS > Index(string searchString) - new
         {
             ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
 
             //ADDED CODE BELOW - new
-            var donations = from d in _context.Donation
+            var user = from d in _context.Donation
                             select d;
 
             // If search string is provided, filter donations by Name. - ADDED
             if (!string.IsNullOrEmpty(searchString))
             {
-                donations = donations.Where(d => d.Name.Contains(searchString)); // Filter by donor name
+                user = user.Where(d => d.Name.Contains(searchString)); // Filter by donor name
             }
 
             ViewData["SearchString"] = searchString;  // Pass searchString to the View
 
-            return View(await _context.Donation.ToListAsync());
+            return View(await _context.User.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -61,6 +61,7 @@ namespace BCITGO_FINAL.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
+            ViewData["Title"] = "Create User";  // Set the page title - ADDED
             return View();
         }
 
@@ -77,7 +78,7 @@ namespace BCITGO_FINAL.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Title"] = "Users";  // Set the page title for Donations index - ADDED
+            ViewData["Title"] = "Create User";  // Set the page title - ADDED
             return View(user);
         }
 
